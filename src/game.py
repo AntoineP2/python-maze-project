@@ -4,6 +4,7 @@ import pyscroll
 
 from spell import Spell
 from player import Player
+from monster import Monster
 
 
 class Game:

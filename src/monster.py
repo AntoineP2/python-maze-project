@@ -3,7 +3,7 @@ import animation
 
 
 
-class Player(animation.AnimationPersonnageSprite):
+class Monster(animation.AnimationPersonnageSprite):
     def __init__(self, x, y):
         super().__init__("player")
         self.speed = 2  # Defini la vitesse du joueur ainsi que la vitesse du changement de son animation
@@ -57,8 +57,8 @@ class Player(animation.AnimationPersonnageSprite):
         image.blit(self.sprite_sheet, (0, 0), (x, y, 32, 32))
         return image
 
-    def set_sprite_img(self, y): # Methode Pour rdéfinir l'image du personnage suivant sont déplacement
-        self.image = self.get_image(32*self.indexAnimation, 32*y)
+    def set_sprite_img(self, y):  # Methode Pour rdéfinir l'image du personnage suivant sont déplacement
+        self.image = self.get_image(32 * self.indexAnimation, 32 * y)
         self.image.set_colorkey([0, 0, 0])
         self.clockAnimation += self.speed
         if self.clockAnimation > 16:
@@ -67,4 +67,3 @@ class Player(animation.AnimationPersonnageSprite):
 
         if self.indexAnimation > 2:
             self.indexAnimation = 0
-
