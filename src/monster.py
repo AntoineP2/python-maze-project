@@ -5,7 +5,7 @@ import animation
 
 class Monster(animation.AnimationPersonnageSprite):
     def __init__(self, x, y):
-        super().__init__("player")
+        super().__init__("boss")
         self.speed = 2  # Defini la vitesse du joueur ainsi que la vitesse du changement de son animation
         self.Hp = 500
         self.MaxHp = 500

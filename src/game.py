@@ -22,7 +22,15 @@ class Game:
         self.player = Player(player_position.x, player_position.y) # Les paramètres place le joueur sur la map
         self.thisSpell = []
 
-        #Definir une liste pour stocker les collision
+        #Generer un monstre
+        monster_position = tmx_data.get_object_by_name("Monster1")
+        self.monster = Monster(monster_position.x, monster_position.y)
+
+        self.monstersRect = []
+        self.monstersRect.append(self.monster.rect)
+
+
+        #Definir une liste pour stocker les collision avec décors
         self.walls = [] # On va stoquer nos element de collision ici
 
         for obj in tmx_data.objects:
@@ -33,7 +41,7 @@ class Game:
         #Dessiner groupe de calque
         self.group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=5)
         self.group.add(self.player) # On dessine le joueur
-
+        self.group.add(self.monster)
 
     def update(self):
 
@@ -41,6 +49,9 @@ class Game:
         #Verification de collision
         if self.player.feet.collidelist(self.walls) > -1:
            self.player.move_back()
+
+        if self.player.feet.collidelist(self.monstersRect) > -1:
+            self.player.move_back()
 
         # On ajoute les spell utilisé par l'utilisateur
         for spell in self.thisSpell:
