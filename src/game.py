@@ -21,11 +21,13 @@ class Game:
         player_position = tmx_data.get_object_by_name("Player") #On utilise le calque position de la map pour placer le joueur
         self.player = Player(player_position.x, player_position.y) # Les paramètres place le joueur sur la map
         self.thisSpell = []
+        self.spellGroupRect = []
 
         #Generer un monstre
         monster_position = tmx_data.get_object_by_name("Monster1")
         self.monster = Monster(monster_position.x, monster_position.y)
-
+        self.monsterGroup = []
+        self.monsterGroup.append(self.monster)
         self.monstersRect = []
         self.monstersRect.append(self.monster.feet)
 
@@ -61,7 +63,6 @@ class Game:
 
 
 
-
     def keyboard_input(self):
         bouton_pressed = pygame.key.get_pressed()
         self.player.deplacement_player(bouton_pressed)
@@ -88,7 +89,10 @@ class Game:
 
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_a:
-                        self.thisSpell.append(Spell(self.player.position[0], self.player.position[1], self.player.position_joueur))
+                        newSpell = Spell(self.player.position[0], self.player.position[1], self.player.position_joueur)
+                        self.thisSpell.append(newSpell)
+                        self.spellGroupRect.append(newSpell.rect) # On group le rect des spell
+
 
 
             clock.tick(60) # Definie le jeu a 60FPS
