@@ -11,7 +11,7 @@ class Player(animation.AnimationPersonnageSprite):
         self.MaxHp = 500
         self.rect = self.image.get_rect()
         self.position = [x, y] # Prend les coordonnée du personnage
-        self.feet = pygame.Rect(0, 0, self.rect.width * 0.5, 12) # On définit un rectangle au pied du joueur (Le 12 est pour la hauteur du rectangle)
+        self.feet = pygame.Rect(0, 0, self.rect.width * 0.8, 12) # On définit un rectangle au pied du joueur (Le 12 est pour la hauteur du rectangle)
         self.old_position = self.position.copy() # On vas sauvegarder l'ancienne position, .copy() permet de copier la valeur.
         self.position_joueur = 0
 

@@ -27,7 +27,7 @@ class Game:
         self.monster = Monster(monster_position.x, monster_position.y)
 
         self.monstersRect = []
-        self.monstersRect.append(self.monster.rect)
+        self.monstersRect.append(self.monster.feet)
 
 
         #Definir une liste pour stocker les collision avec décors
@@ -46,24 +46,21 @@ class Game:
     def update(self):
 
         self.group.update()
-        #Verification de collision
-        if self.player.feet.collidelist(self.walls) > -1:
+        #------------------Verification toutes les collisions -------------------
+        if self.player.feet.collidelist(self.walls) > -1 or self.player.feet.collidelist(self.monstersRect) > -1:
            self.player.move_back()
 
-        if self.player.feet.collidelist(self.monstersRect) > -1:
-            self.player.move_back()
 
-        # On ajoute les spell utilisé par l'utilisateur
+       # --------------------------------------------------------------------
+        # On ajoute les spell utilisé par l'utilisateur et on gère ses collision avec les murs et les monstres
         for spell in self.thisSpell:
             self.group.add(spell)
-            if spell.rect.collidelist(self.walls) > -1:
+            if spell.rect.collidelist(self.walls) > -1 or spell.rect.collidelist(self.monstersRect) > -1:
                 self.group.remove(spell)
+                self.thisSpell.remove(spell)
 
-        """
-        for sprite in self.group.sprites():
-            if sprite.feet.collidelist(self.walls) > -1:
-                sprite.move_back()
-        """
+
+
 
     def keyboard_input(self):
         bouton_pressed = pygame.key.get_pressed()
@@ -80,6 +77,7 @@ class Game:
             self.player.save_position()
             self.keyboard_input()
             self.update() #Actualise la map pour placer le joueur au bonne coordonnées
+            self.monster.updateMove(self.monster.feet.collidelist(self.walls), self.player.feet.collidelist(self.monstersRect)) #Genere le déplacement du Monstre et collision
             self.group.center(self.player.rect) # On centre la cam sur le joueur
             self.group.draw(self.screen)
             pygame.display.flip()
@@ -91,7 +89,6 @@ class Game:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_a:
                         self.thisSpell.append(Spell(self.player.position[0], self.player.position[1], self.player.position_joueur))
-                        print("Spell lancé !")
 
 
             clock.tick(60) # Definie le jeu a 60FPS
