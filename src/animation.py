@@ -1,6 +1,6 @@
 import pygame
 from abc import ABC, abstractmethod
-
+# abc est le module pour créer des classes et méthode abstraite
 class AnimationPersonnageSprite(pygame.sprite.Sprite, ABC):
 
     def __init__(self, sprite_name):
