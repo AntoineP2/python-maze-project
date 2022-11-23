@@ -4,7 +4,7 @@ class AnimationPersonnageSprite(pygame.sprite.Sprite):
 
     def __init__(self, sprite_name):
         super().__init__()
-        self.sprite_sheet = pygame.image.load('assets/' + sprite_name + '.png')
+        self.sprite_sheet = pygame.image.load('../assets/personnage/' + sprite_name + '.png')
         self.image = self.get_image(0, 0)  # Definie l'image du personnage (Par 32)
         self.image.set_colorkey([0, 0, 0])  # Supprime le backGround
         self.indexAnimation = 0

@@ -12,7 +12,7 @@ class Game:
         pygame.display.set_caption("Le jeu trop cool")
 
         #Charger la carte
-        tmx_data = pytmx.util_pygame.load_pygame('MapAntoine.tmx')
+        tmx_data = pytmx.util_pygame.load_pygame('../assets/map/MapAntoine.tmx')
         map_data = pyscroll.data.TiledMapData(tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
         map_layer.zoom = 2 # Pour zoomer sur map
