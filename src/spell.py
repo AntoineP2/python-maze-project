@@ -4,7 +4,7 @@ class Spell(pygame.sprite.Sprite):
 
     def __init__(self, x,y, posPlayer):
         super().__init__()
-        self.dammage = 100
+        self.damage = 100
         self.speed = 7
         self.image = pygame.image.load('../assets/spell/spell.png') # Definie l'image du personnage (Par 32)
         self.image.set_colorkey([0, 0, 0])  # Supprime le backGround

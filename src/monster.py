@@ -10,6 +10,7 @@ class Monster(animation.AnimationPersonnageSprite):
         self.speed = 1  # Defini la vitesse du joueur ainsi que la vitesse du changement de son animation
         self.Hp = 500
         self.MaxHp = 500
+        self.attack = 100
         self.rect = self.image.get_rect()
         self.position = [x, y] # Prend les coordonnée du personnage
         self.feet = pygame.Rect(0, 0, self.rect.width * 0.8, 20) # On définit un rectangle au pied du joueur (Le 12 est pour la hauteur du rectangle)
@@ -22,14 +23,33 @@ class Monster(animation.AnimationPersonnageSprite):
         self.positionJoueurColision = 0
         # ------------------------------
 
+    def updateLifeBar(self, surface):
+        barColor = (110, 210, 46)
+
+        # Definir nos LifeBar + width + largeur
+        barPosition = [self.rect.x, self.rect.y, self.Hp, 5]
+
+        # Dessiner la bar
+        pygame.draw.rect(surface, barColor, barPosition)
+
+
     def set_hp(self, hp):
         self.Hp = hp
 
-
+    def getDamage(self, damage):
+        self.Hp -= damage
+        print(self.Hp)
+        if self.Hp <= 0:
+            self.Hp = 0
     def save_position(self):
         self.old_position = self.position.copy() # Sauvegarder l'ancienne position
 
+    def rageMode(self):
+        if self.Hp <=200:
+            self.speed = 2
+
     def update(self):  # Cette méthode actualise la position du joueur
+        self.rageMode()
         self.rect.topleft = self.position # PLace le personnage suivant les coordonée depuis haut gauche
         self.feet.midbottom = self.rect.midbottom # On place le rectangle des pieds au meme niveau que le rectangle du joueur
 
