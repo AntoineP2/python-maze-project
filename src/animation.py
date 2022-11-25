@@ -12,6 +12,7 @@ class AnimationPersonnageSprite(pygame.sprite.Sprite, ABC):
         self.clockAnimation = 0
         #Position joueur pour direction du projectil, 0 = vers le bas, 1 vers haut, 2 vers gauche, 3 vers droite
         self.position_joueur = 0
+        self.aLive = True
 
     @abstractmethod
     def get_image(self, x, y):

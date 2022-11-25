@@ -1,6 +1,7 @@
 import pygame
 import animation
 from random import randint
+from lifeBar import LifeBar
 
 
 
@@ -21,17 +22,19 @@ class Monster(animation.AnimationPersonnageSprite):
         self.indexColision = 0
         self.indexMove = 0
         self.positionJoueurColision = 0
+        self.lifeBareEmpty = LifeBar(self.position[0], self.position[1], 50, (98, 98, 98))
+        self.lifeBare = LifeBar(self.position[0], self.position[1], 50, (200, 68, 29))
+
         # ------------------------------
 
-    def updateLifeBar(self, surface):
-        barColor = (110, 210, 46)
+# Cette methode va mettre a jour a chaque frame la barre de vie
+    def updateLifeBar(self):
 
-        # Definir nos LifeBar + width + largeur
-        barPosition = [self.rect.x, self.rect.y, self.Hp, 5]
-
-        # Dessiner la bar
-        pygame.draw.rect(surface, barColor, barPosition)
-
+        self.lifeBare.position = [self.position[0] - 10, self.position[1]-10]
+        self.lifeBareEmpty.position = [self.position[0] - 10, self.position[1] - 10]
+        width = (self.Hp / self.MaxHp)*50
+        self.lifeBare.image = pygame.Surface([width, 5])
+        self.lifeBare.image.fill(self.lifeBare.barColor)
 
     def set_hp(self, hp):
         self.Hp = hp
@@ -41,6 +44,7 @@ class Monster(animation.AnimationPersonnageSprite):
         print(self.Hp)
         if self.Hp <= 0:
             self.Hp = 0
+            self.aLive = False
     def save_position(self):
         self.old_position = self.position.copy() # Sauvegarder l'ancienne position
 
@@ -50,6 +54,7 @@ class Monster(animation.AnimationPersonnageSprite):
 
     def update(self):  # Cette méthode actualise la position du joueur
         self.rageMode()
+        self.updateLifeBar()
         self.rect.topleft = self.position # PLace le personnage suivant les coordonée depuis haut gauche
         self.feet.midbottom = self.rect.midbottom # On place le rectangle des pieds au meme niveau que le rectangle du joueur
 

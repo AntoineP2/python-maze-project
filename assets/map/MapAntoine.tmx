@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="9">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="11">
  <editorsettings>
   <export target="testLua.lua" format="lua"/>
  </editorsettings>
@@ -120,7 +120,13 @@
   <object id="3" name="collision" class="collision" x="238" y="208.667" width="353.333" height="44.6667"/>
   <object id="4" name="collision" class="collision" x="191.333" y="206.667" width="47.3333" height="350.667"/>
   <object id="5" name="collision" class="collision" x="238.667" y="510.667" width="354" height="47.3333"/>
-  <object id="8" name="Monster1" x="501.762" y="379.239">
+  <object id="8" name="Monster" x="501.762" y="379.239">
+   <point/>
+  </object>
+  <object id="9" name="Monster" x="422" y="321">
+   <point/>
+  </object>
+  <object id="10" name="Monster" x="426" y="456">
    <point/>
   </object>
  </objectgroup>

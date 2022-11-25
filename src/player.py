@@ -2,6 +2,7 @@ import pygame
 import animation
 
 from spell import Spell
+from lifeBar import LifeBar
 
 class Player(animation.AnimationPersonnageSprite):
     def __init__(self, x, y):
@@ -14,16 +15,29 @@ class Player(animation.AnimationPersonnageSprite):
         self.feet = pygame.Rect(0, 0, self.rect.width * 0.8, 12) # On définit un rectangle au pied du joueur (Le 12 est pour la hauteur du rectangle)
         self.old_position = self.position.copy() # On vas sauvegarder l'ancienne position, .copy() permet de copier la valeur.
         self.position_joueur = 0
-        self.cooldownMax = 10
+        self.cooldownMax = 30
         self.cooldownCurrent = self.cooldownMax
         self.spellList = []
         self.spellGroupRect = []
         self.manualMove = True  # Si le joueur peu bouger manuellement
         self.indexManualMoveCount = 0
+        self.lifeBareEmpty = LifeBar(self.position[0], self.position[1], 50, (98, 98, 98))
+        self.lifeBare = LifeBar(self.position[0], self.position[1], 50, (110, 210, 46))
+
 
 
     def set_hp(self, hp):
         self.Hp = hp
+
+    # Cette methode va mettre a jour a chaque frame la barre de vie
+    def updateLifeBar(self):
+
+        self.lifeBare.position = [self.position[0] - 10, self.position[1]-10]
+        self.lifeBareEmpty.position = [self.position[0] - 10, self.position[1] - 10]
+        width = (self.Hp / self.MaxHp)*50
+        self.lifeBare.image = pygame.Surface([width, 5])
+        self.lifeBare.image.fill(self.lifeBare.barColor)
+
 
     def getDamage(self, damage):
         self.Hp -= damage
@@ -64,6 +78,8 @@ class Player(animation.AnimationPersonnageSprite):
             pass
         else:
             self.cooldownCurrent += 1
+
+        self.updateLifeBar()
         self.rect.topleft = self.position # PLace le personnage suivant les coordonée depuis haut gauche
         self.feet.midbottom = self.rect.midbottom # On place le rectangle des pieds au meme niveau que le rectangle du joueur
 
