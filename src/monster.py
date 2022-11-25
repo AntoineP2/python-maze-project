@@ -39,12 +39,21 @@ class Monster(animation.AnimationPersonnageSprite):
     def set_hp(self, hp):
         self.Hp = hp
 
+
+    # Méthode utiliser lorsque le monstre meurt
+    def deathMonster(self):
+        self.aLive = False
+        self.image = pygame.image.load('../assets/autre/tombstone.png')  # si le monstre meurs alors on change le skin
+        self.feet = pygame.Rect(0, 0, 0, 0)
+        self.attack = 0
+
     def getDamage(self, damage):
         self.Hp -= damage
         print(self.Hp)
         if self.Hp <= 0:
             self.Hp = 0
-            self.aLive = False
+            self.deathMonster()
+
     def save_position(self):
         self.old_position = self.position.copy() # Sauvegarder l'ancienne position
 

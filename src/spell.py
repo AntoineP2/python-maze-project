@@ -17,7 +17,7 @@ class Spell(pygame.sprite.Sprite):
 
     def update(self): # Fonction qui s'utilise dans le Game.py lorsque l'ont fait group.update() !
         self.rect.topleft = self.position
-        self.impactPoint = pygame.Rect((self.position),(self.rect.width * 0.1, 12))
+        self.impactPoint = pygame.Rect((self.position), (self.rect.width * 0.1, 12))
         self.rotate()
         self.spellDirection()
 

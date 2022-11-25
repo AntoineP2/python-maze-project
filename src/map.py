@@ -41,7 +41,6 @@ class Map:
 
     def setWalls(self):
         for obj in self.tmx_data.objects:
-            print(obj.name)
             if obj.name == "collision":
                 self.walls.append(pygame.Rect(obj.x, obj.y, obj.width, obj.height))
 
@@ -61,12 +60,13 @@ class Map:
             self.player.forcedMove()
 
         # ------------------Verification toutes les collisions -------------------
-        if self.player.feet.collidelist(self.walls) > -1 or self.player.feet.collidelist(self.monstersRect) > -1:
+        if self.player.feet.collidelist(self.walls) > -1:
             self.player.move_back()
+
 
         # ------ On applique les degat du monstre si il touche le joueur -----------------
         for monster in self.monsterList:
-            if self.player.feet.colliderect(monster.feet):
+            if self.player.feet.colliderect(monster.feet) and monster.aLive:
                 self.player.getDamage(monster.attack)
                 self.player.manualMove = False
 
@@ -87,9 +87,7 @@ class Map:
                     self.group.remove(spell)
                     self.player.spellList.remove(spell)
                     if monster.Hp <= 0:
-                        self.monstersRect.remove(monster.feet)
-                        self.monsterList.remove(monster)
-                        self.group.remove(monster, monster.lifeBare, monster.lifeBareEmpty)
+                        self.group.remove(monster.lifeBare, monster.lifeBareEmpty)
 
             # -----------------------------FIN SPELL ET DEGATS SPELL-----------------------------
 
@@ -100,4 +98,5 @@ class Map:
     # --- Methode pour Mettre a jours les déplacements des monstres -----------------------------
     def updateMonstersMove(self):
         for monster in self.monsterList:
-            monster.updateMove(monster.feet.collidelist(self.walls), self.player.feet.collidelist(self.monstersRect))
+            if monster.aLive :
+                monster.updateMove(monster.feet.collidelist(self.walls), self.player.feet.collidelist(self.monstersRect))
