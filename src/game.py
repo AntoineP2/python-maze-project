@@ -9,7 +9,7 @@ class Game:
         pygame.display.set_caption("Le jeu trop cool")
 
         #Charger la carte
-        self.map = Map(self.screen, "MapAntoine")
+        self.map = Map(self.screen, "MapOne")
 
 
 
@@ -19,7 +19,6 @@ class Game:
     def keyboard_input(self):
         bouton_pressed = pygame.key.get_pressed()
         self.map.player.deplacement_player(bouton_pressed)
-
 
 
     def run(self):
@@ -42,6 +41,7 @@ class Game:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_a:
                         self.map.player.useSpellA()
+                        print('ok')
 
 
             clock.tick(60) # Definie le jeu a 60FPS

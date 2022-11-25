@@ -41,6 +41,7 @@ class Map:
 
     def setWalls(self):
         for obj in self.tmx_data.objects:
+            print(obj.name)
             if obj.name == "collision":
                 self.walls.append(pygame.Rect(obj.x, obj.y, obj.width, obj.height))
 
@@ -74,9 +75,11 @@ class Map:
         # On ajoute les spell utilisé par l'utilisateur et on gère ses collision avec les murs et les monstres
         for spell in self.player.spellList:
             self.group.add(spell)
-            if spell.rect.collidelist(self.walls) > -1:
+            print(spell.impactPoint.collidelist(self.walls))
+            if spell.impactPoint.collidelist(self.walls) > -1:
                 self.group.remove(spell)
                 self.player.spellList.remove(spell)
+
             # Applique les degats du sort au monstre
             for monster in self.monsterList:
                 if pygame.Rect.colliderect(monster.feet, spell.rect):

@@ -9,6 +9,7 @@ class Spell(pygame.sprite.Sprite):
         self.image = pygame.image.load('../assets/spell/spell.png') # Definie l'image du personnage (Par 32)
         self.image.set_colorkey([0, 0, 0])  # Supprime le backGround
         self.rect = self.image.get_rect()
+        self.impactPoint = pygame.Rect(0, 0, self.rect.width * 0.5, 12)
         self.position = [x, y]
         self.positionPlayer = posPlayer
         self.originImage = self.image
@@ -16,6 +17,7 @@ class Spell(pygame.sprite.Sprite):
 
     def update(self): # Fonction qui s'utilise dans le Game.py lorsque l'ont fait group.update() !
         self.rect.topleft = self.position
+        self.impactPoint = pygame.Rect((self.position),(self.rect.width * 0.1, 12))
         self.rotate()
         self.spellDirection()
 
