@@ -98,5 +98,5 @@ class Map:
     # --- Methode pour Mettre a jours les déplacements des monstres -----------------------------
     def updateMonstersMove(self):
         for monster in self.monsterList:
-            if monster.aLive :
+            if monster.aLive:
                 monster.updateMove(monster.feet.collidelist(self.walls), self.player.feet.collidelist(self.monstersRect))

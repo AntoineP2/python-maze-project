@@ -71,8 +71,8 @@ class Monster(animation.AnimationPersonnageSprite):
 
 
 # ----------- Méthode qui actualise et déplace le monstre suivant les collision...
-    def updateMove(self, collision, collisionJoueur):
-        if collision != -1 or collisionJoueur != -1:
+    def updateMove(self, wallCollision, joueurCollision):
+        if wallCollision != -1 or joueurCollision != -1:
            self.indexColision = 6
            self.movCount = 21
            self.positionJoueurColision = self.position_joueur
