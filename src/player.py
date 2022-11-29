@@ -10,6 +10,8 @@ class Player(animation.AnimationPersonnageSprite):
         self.speed = 2  # Defini la vitesse du joueur ainsi que la vitesse du changement de son animation
         self.Hp = 500
         self.MaxHp = 500
+        self.mana = 200
+        self.manaMax = 200
         self.rect = self.image.get_rect()
         self.position = [x, y] # Prend les coordonnée du personnage
         self.feet = pygame.Rect(0, 0, self.rect.width * 0.8, 12) # On définit un rectangle au pied du joueur (Le 12 est pour la hauteur du rectangle)
@@ -25,9 +27,22 @@ class Player(animation.AnimationPersonnageSprite):
         self.lifeBare = LifeBar(self.position[0], self.position[1], 50, (110, 210, 46))
 
 
-
+# -----------------------  Methode pour HP et Mana, attaque, barre de vie --------------------------------
     def set_hp(self, hp):
         self.Hp = hp
+
+    def set_maxHp(self, hp):
+        self.MaxHp = hp
+    def recovery_maxHp(self):
+        self.hp = self.MaxHp
+
+    def set_mana(self, mana):
+        self.mana = mana
+
+    def set_manaMax(self, mana):
+        self.manaMax = mana
+    def recovery_manaMax(self):
+        self.mana = self.manaMax
 
     # Cette methode va mettre a jour a chaque frame la barre de vie
     def updateLifeBar(self):
@@ -52,7 +67,7 @@ class Player(animation.AnimationPersonnageSprite):
             self.spellGroupRect.append(spellUsed.rect)
             self.cooldownCurrent = 0
 
-
+# ----------------------------------------------------------------------------------
 
 # Methode qui fais reculer le joueur sans changer son animation si evenement exterieur
     def forcedMove(self):
@@ -113,6 +128,7 @@ class Player(animation.AnimationPersonnageSprite):
                 self.set_sprite_img(2)
                 self.position[0] += self.speed
 
+# -------------------------------------- Methode pour gérer l'avatar du joueur -------------------------------------
     def get_image(self, x, y):
         image = pygame.Surface([32, 32])
         image.blit(self.sprite_sheet, (0, 0), (x, y, 32, 32))
